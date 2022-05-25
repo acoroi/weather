@@ -23,6 +23,9 @@ module WeatherViaRails
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
+    # I just really care about this being a RESTful API
+    config.api_only = true
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
@@ -33,5 +36,11 @@ module WeatherViaRails
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+
+    # Raise an exception if the user does not set their ENV VAR API key
+    if ENV['OPENWEATHER_API_KEY'] == nil
+      raise "Please ensure you set your local OPENWEATHER_API_KEY ENV VAR with your OpenWeather API to use this microservice."
+    end
   end
 end
