@@ -15,3 +15,93 @@ You should first ensure that the environment variable ```OPENWEATHER_API_KEY``` 
 
 You can set the key like so:
 ```export OPENWEATHER_API_KEY=<your key here>```
+
+Once you have cloned the repo and entered the folder, install dependencies by running ```bundle install```. You should see an output like so:
+```
+Bundle complete! 6 Gemfile dependencies, 54 gems now installed.
+Use `bundle info [gemname]` to see where a bundled gem is installed.
+```
+
+This indicates that your dependencies have installed successfully.
+
+Start the server by running ```rails server```. You can now navigate to ```localhost:3000``` in your API platform of choice (I use Postman) and make some calls!
+
+## API
+This service accepts a couple of RESTful calls regarding weather. Details are below.
+
+#### URL
+
+- ```localhost:3000``` (i.e. baseURL)
+
+#### Supported methods
+
+- `GET` | `POST`
+
+### Sample Calls
+
+#### ```GET``` Hello!
+This request allows the caller to make sure the app is alive and to say hello!
+##### Request
+```js
+GET {baseURL}/
+```
+##### Response (200)
+```json
+{
+    "message": "Ahh, hello. Was it you who rang the bell of awakening?"
+}
+```
+
+#### ```POST``` Weather details
+This request allows the caller to pass in a payload that informs them about the temperature (C or F, caller's choice) in various cities around the world. The caller must specify at least one city and no more than 10.
+##### Request
+```js
+POST {baseURL}/weather
+```
+```json
+{
+    "cities": [
+        "Toronto",
+        "Los Angeles",
+        "London",
+        "Philadelphia",
+        "Portland"
+    ],
+    "temperatureIsCelcius": true
+}
+```
+##### Response (200)
+```json
+{
+    "cities": [
+        {
+            "city": "Toronto",
+            "temperature": 13.58
+        },
+        {
+            "city": "Los Angeles",
+            "temperature": 20.49
+        },
+        {
+            "city": "London",
+            "temperature": 9.2
+        },
+        {
+            "city": "Philadelphia",
+            "temperature": 16.09
+        },
+        {
+            "city": "Portland",
+            "temperature": 16.55
+        }
+    ],
+    "hottestCity": {
+        "city": "Los Angeles",
+        "temperature": 20.49
+    },
+    "coldestCity": {
+        "city": "London",
+        "temperature": 9.2
+    }
+}
+```
